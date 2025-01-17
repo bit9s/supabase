@@ -16,6 +16,9 @@ import {
 import { IS_PLATFORM, PROJECT_STATUS } from 'lib/constants'
 import { ICON_SIZE, ICON_STROKE_WIDTH } from './NavigationBar'
 
+// const IS_PLATFORM_FORCED = IS_PLATFORM
+const IS_PLATFORM_FORCED = true
+
 export const generateToolRoutes = (ref?: string, project?: Project): Route[] => {
   const isProjectBuilding = project?.status === PROJECT_STATUS.COMING_UP
   const buildingUrl = `/project/${ref}`
@@ -85,7 +88,7 @@ export const generateProductRoutes = (
           },
         ]
       : []),
-    ...(IS_PLATFORM && edgeFunctionsEnabled
+    ...(IS_PLATFORM_FORCED && edgeFunctionsEnabled
       ? [
           {
             key: 'functions',
@@ -119,7 +122,7 @@ export const generateOtherRoutes = (ref?: string, project?: Project): Route[] =>
       icon: <Lightbulb size={ICON_SIZE} strokeWidth={ICON_STROKE_WIDTH} />,
       link: ref && (isProjectBuilding ? buildingUrl : `/project/${ref}/advisors/security`),
     },
-    ...(IS_PLATFORM
+    ...(IS_PLATFORM_FORCED
       ? [
           {
             key: 'reports',
@@ -152,7 +155,7 @@ export const generateOtherRoutes = (ref?: string, project?: Project): Route[] =>
 
 export const generateSettingsRoutes = (ref?: string, project?: Project): Route[] => {
   return [
-    ...(IS_PLATFORM
+    ...(IS_PLATFORM_FORCED
       ? [
           {
             key: 'settings',
